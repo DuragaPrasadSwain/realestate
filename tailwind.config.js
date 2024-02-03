@@ -11,10 +11,9 @@ export default {
         'husk': '#B7A458',
         'mirage':'#161928'
       },
-      backgroundImage: {
-        'dark-logo': "url(darkim)",
-        'light-logo': "url('/src/assets/light.jpj')",
-      }
+      screens: {
+        'res' : '900px'
+      },
     },
   },
   plugins: [],
