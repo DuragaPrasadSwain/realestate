@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [credential, setcredential] = useState({ username: "", email: "", password: "" })
-  let ref = useRef("")
+  const navigate = useNavigate();
 
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.id]: e.target.value })
@@ -10,6 +11,7 @@ const SignUp = () => {
 
   const handleClick = async (e) => {
     e.preventDefault()
+    document.getElementById('loader').classList.remove('hidden')
     const response = await fetch('http://localhost:3000/api/auth/signup', {
       method: "POST",
       headers: {
@@ -17,13 +19,16 @@ const SignUp = () => {
       }, body: JSON.stringify({ username: credential.username, email: credential.email, password: credential.password })
     })
     const json = await response.json()
+    document.getElementById('loader').classList.add('hidden')
     console.log(json)
-
     document.getElementById('error1').classList.add('hidden')
 
     if (json.error) {
       document.getElementById('error').innerHTML = `${json.error}`
       document.getElementById('error1').classList.remove('hidden')
+    }else{
+      localStorage.setItem('token',json.authToken)
+      navigate('/')
     }
 
   }
@@ -39,7 +44,7 @@ const SignUp = () => {
 
           <button type='submit' className='bg-blue-950 border-2 active:bg-blue-950 active:text-blue-200 hover:bg-blue-200 hover:text-blue-950 hover:border-blue-950 text-blue-200 mb-4 rounded focus:outline-none pl-5 p-3 w-96' >SIGN UP</button>
         </form >
-        <div ref={ref} id='error1' className=' hidden bg-red-300 text-black flex items-center gap-2 mb-2 w-96 justify-center h-10 rounded'>
+        <div id='error1' className=' hidden bg-red-300 text-black flex items-center gap-2 mb-2 w-96 justify-center h-10 rounded'>
           <i className="fa-solid fa-triangle-exclamation" style={{ color: "#000000" }}></i>
           <div id='error' className=''></div>
 
