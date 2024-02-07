@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 const NavBar = () => {
   return (
-    <div className='w-full h-12 res:h-16 bg-blue-950 flex justify-between items-center px-5 res:px-9'>
+    <div className='fixed z-10 w-screen h-12 res:h-16 bg-blue-950 flex justify-between items-center px-5 res:px-9'>
 
       {/* logo */}
       <Link to="/">

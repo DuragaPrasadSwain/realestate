@@ -31,7 +31,7 @@ const SignUp = () => {
   return (
     <>
       <div className=' p-5 dosis-dosis-500 flex flex-col items-center' >
-        <div className=' text-blue-950 text-center text-7xl dosis-dosis-800 my-10 cursor-default'>Sign Up</div>
+        <div className='mt-[5rem] text-blue-950 text-center text-7xl dosis-dosis-800 my-10 cursor-default'>Sign Up</div>
         <form onSubmit={handleClick} className='flex flex-col'>
           <input required onChange={onchange} className='bg-blue-200 border-2 text-blue-950 mb-4 focus:border-blue-950 rounded focus:outline-none pl-5 p-3 w-96' type="text" name="username" id="username" placeholder='Username' />
           <input required pattern=".+@gmail.com" onChange={onchange} className='bg-blue-200 border-2 text-blue-950 mb-4 focus:border-blue-950 rounded focus:outline-none pl-5 p-3 w-96' type="email" name="email" id="email" placeholder='Email' />

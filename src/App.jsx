@@ -6,6 +6,7 @@ import Profile from './Pages/Profile'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import NavBar from './Components/NavBar'
+import Loader from './Components/loader'
 // import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <>
      <BrowserRouter>
      <NavBar/>
+     <Loader/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About/>} />
