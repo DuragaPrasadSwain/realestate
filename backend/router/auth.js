@@ -5,7 +5,8 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const   JWT_SECRET = 'DURGAPRASADSWAIN@123'
+// const   JWT_SECRET = process.env.JWT_SECRET_ENV
+JWT_SECRET = 'DURGAPRASADSWAIN@123'
 
 
                         //CREATE USER
@@ -51,6 +52,99 @@ async(req,res) => {
         console.log(error.message)
         res.status(500).send('some error occured')
     }
+})
+
+
+
+                                                    //signin
+
+
+
+
+
+router.post('/signin',[
+    body('email','please enter a valid email').isEmail(),
+    body('password','please enter a valid password').isLength({min:5})
+],async(req,res)=>{
+    const result = validationResult(req)
+    console.log(result.array);
+    if(!result.isEmpty()){
+        return res.status(400).json({error:result.array()})
+    }
+    try {
+        let user = await User.findOne({email:req.body.email})
+        console.log()
+        if(!user){
+          return res.status(400).json({error:"Email or Password is not valid"})
+        }
+
+        const passwordCompare = bcrypt.compareSync(req.body.password,user.password)
+
+        if(!passwordCompare){
+            return res.status(400).json({error:"Email or Password is not valid"})
+        }
+
+        const data = {
+            user:{
+                id:user.id
+            }
+        }
+
+        const authToken = jwt.sign(data,JWT_SECRET)
+
+        res.json({authToken})
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('some error occured')
+    }
+})
+
+
+
+
+
+
+                                            //google
+
+
+
+
+
+
+router.post('/google',async(req,res)=>{
+try {
+    let user = await User.findOne({email:req.body.email})
+
+    if(user){
+        const data = {
+            user:{
+                id:user.id
+            }
+        }
+        const authToken = jwt.sign(data,JWT_SECRET)
+
+        return res.json({authToken})
+    }else{
+        let hash = (Math.random()).toString(36).slice(-8)+(Math.random()).toString(36).slice(-8)
+        const hashpassword = bcrypt.hashSync(hash,10)
+        user = User.create({
+            username:(req.body.email).replace("@gmail.com",""),
+            email:req.body.email,
+            password:hashpassword
+        })
+        const data = {
+            user:{
+                id:user.id
+            }
+        }
+        const authToken = jwt.sign(data,JWT_SECRET)
+        return res.json({authToken})
+    }
+
+} catch (error) {
+    
+}
 })
 
 

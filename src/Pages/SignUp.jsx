@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import Gauth from '../Components/Gauth';
 
 const SignUp = () => {
   const [credential, setcredential] = useState({ username: "", email: "", password: "" })
@@ -43,9 +44,11 @@ const SignUp = () => {
           <input required minLength="5" onChange={onchange} className='bg-blue-200 border-2 text-blue-950 mb-4 focus:border-blue-950 rounded focus:outline-none pl-5 p-3 w-96' type="password" name="password" id="password" placeholder='Password' />
 
           <button type='submit' className='bg-blue-950 border-2 active:bg-blue-950 active:text-blue-200 hover:bg-blue-200 hover:text-blue-950 hover:border-blue-950 text-blue-200 mb-4 rounded focus:outline-none pl-5 p-3 w-96' >SIGN UP</button>
+          <Gauth/>
         </form >
         <div id='error1' className=' hidden bg-red-300 text-black flex items-center gap-2 mb-2 w-96 justify-center h-10 rounded'>
           <i className="fa-solid fa-triangle-exclamation" style={{ color: "#000000" }}></i>
+
           <div id='error' className=''></div>
 
         </div>
