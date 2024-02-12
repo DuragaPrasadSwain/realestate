@@ -4,6 +4,7 @@ const User = require('../models/User')
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
 
 // const   JWT_SECRET = process.env.JWT_SECRET_ENV
 JWT_SECRET = 'DURGAPRASADSWAIN@123'
@@ -104,6 +105,35 @@ router.post('/signin',[
 
 
 
+                                      //fetchuser
+
+
+
+ 
+
+                                     router.get('/fetchuser',fetchuser,[],async(req,res)=>{
+
+
+                                        try {
+                                            const user = await User.findOne({ _id: req.body.id })
+                                            res.json(user)
+                                            return
+                                        } catch (error) {
+                                            console.log(error.message)
+                                            res.status(500).send('Internal server error occured')
+                                        }
+                                    
+                                    
+                                    })
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    module.exports = router
+
+
+
 
                                             //google
 
@@ -139,7 +169,7 @@ try {
             }
         }
         const authToken = jwt.sign(data,JWT_SECRET)
-        return res.json({authToken})
+    return res.json({authToken})
     }
 
 } catch (error) {
@@ -150,4 +180,8 @@ try {
 
 
 
-module.exports = router
+
+
+
+
+  

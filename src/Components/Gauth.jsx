@@ -21,9 +21,11 @@ const Gauth = () => {
               body:JSON.stringify({email:result.user.email})
             })
 
-            const json = response.json()
+            const json = await response.json()
 
             console.log(json);
+
+            localStorage.setItem('token',json.authToken)
 
             navigate('/')
 

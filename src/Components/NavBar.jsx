@@ -1,7 +1,24 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import {Link, useLocation} from 'react-router-dom'
 
 const NavBar = () => {
+
+  let location = useLocation();
+
+  React.useEffect(() => {
+    // Google Analytics
+    console.log(location)
+  }, [location]);
+
+  const {currentUser} = useSelector(state => state.user)
+  console.log(currentUser);
+
+  const handleClick = () =>{
+    localStorage.clear()
+  }
+
+ 
   return (
     <div className='fixed z-10 w-screen h-12 res:h-16 bg-blue-950 flex justify-between items-center px-5 res:px-9'>
 
@@ -28,12 +45,21 @@ const NavBar = () => {
       {/* page links */}
       <div className='hidden text-blue-200 res:inline mr-5 dosis-dosis-600 text-lg'>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/">Home</Link>
-      <Link className='mr-3 hover:underline underline-offset-8' to = "/signin">Sign In</Link>
+      <Link onClick={handleClick} className='mr-3 hover:underline underline-offset-8' to = "/signin">{location.pathname===('/signin'||'/signup')?'Sign In':'Sign Out'}</Link>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/about">About</Link>
       </div>
 
       {/* profile */}
-      <i className="fa-regular fa-circle fa-2xl"></i>
+    <Link to="/profile">
+    <div id='profile' className ={location.pathname===('/signin'||'/signup')?'hidden':''}>
+      {/* <i className="fa-regular fa-circle fa-2xl"> */}
+        <img className='size-8 rounded-full' src={currentUser.profilepic} alt="profile" />
+      {/* </i> */}
+      </div>
+      </Link>
+
+
+
       </div>
       
     </div>
