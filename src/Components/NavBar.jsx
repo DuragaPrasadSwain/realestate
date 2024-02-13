@@ -12,7 +12,7 @@ const NavBar = () => {
   }, [location]);
 
   const {currentUser} = useSelector(state => state.user)
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handleClick = () =>{
     localStorage.clear()
@@ -53,7 +53,7 @@ const NavBar = () => {
     <Link to="/profile">
     <div id='profile' className ={location.pathname===('/signin'||'/signup')?'hidden':''}>
       {/* <i className="fa-regular fa-circle fa-2xl"> */}
-        <img className='size-8 rounded-full' src={currentUser.profilepic} alt="profile" />
+        <img className='size-8 rounded-full' src={(currentUser)?currentUser.profilepic:""} alt="profile" />
       {/* </i> */}
       </div>
       </Link>

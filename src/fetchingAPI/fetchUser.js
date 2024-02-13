@@ -3,7 +3,7 @@ import { signInSuccess } from "../redux/reducer/userSlice";
 
 
 
-const fetchUser = async(e) =>{
+const fetchUser = async() =>{
 
 
 const dispatch = useDispatch()
