@@ -8,7 +8,6 @@ const NavBar = () => {
 
   React.useEffect(() => {
     // Google Analytics
-    console.log(location)
   }, [location]);
 
   const {currentUser} = useSelector(state => state.user)

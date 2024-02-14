@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import Gauth from '../Components/Gauth'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { fetchUser } from '../fetchingAPI/fetchUser'
+import { signInSuccess } from '../redux/reducer/userSlice'
 
 
 const SignIn = () => {
   const [credential , setcredential] = useState({email:"" , password:""})
+  const [fetchdata,setfetchdata] = useState({})
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  console.log(fetchdata);
   const handleClick = async (e) => {
     e.preventDefault()
 
@@ -31,6 +37,9 @@ const SignIn = () => {
       document.getElementById('error').innerHTML = `${json.error}`
     }else{
       localStorage.setItem('token',json.authToken)
+      let p = await fetchUser()
+      dispatch(signInSuccess(p))
+      console.log(p)
       navigate('/')
     }
 
@@ -76,7 +85,7 @@ const SignIn = () => {
 
         <div className='flex gap-2'>
 
-          <p className='cursor-default'>Create an account</p> <a className='text-blue-600 hover:underline ' href="/">Click here</a>
+          <p className='cursor-default'>Create an account</p> <a className='text-blue-600 hover:underline ' href="/signup">Click here</a>
 
         </div>
 

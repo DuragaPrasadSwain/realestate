@@ -29,6 +29,7 @@ const SignUp = () => {
       document.getElementById('error1').classList.remove('hidden')
     }else{
       localStorage.setItem('token',json.authToken)
+      fetchUser()
       navigate('/')
     }
 
