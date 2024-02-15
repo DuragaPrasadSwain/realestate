@@ -7,6 +7,7 @@ import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import NavBar from './Components/NavBar'
 import Loader from './Components/loader'
+import CreateList from './Pages/CreateList'
 // import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/signup" element={<SignUp/>} />
+        <Route path="/create-list" element={<CreateList/>} />
       </Routes>
     </BrowserRouter>
 

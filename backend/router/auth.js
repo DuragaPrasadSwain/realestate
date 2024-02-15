@@ -113,13 +113,16 @@ router.post('/signin', [
 
 
 
-router.get('/fetchuser', fetchuser, async (req, res) => {
+router.get('/fetchuser',fetchuser, async (req, res) => {
 
 
     try {
         const user = await User.findOne({ _id: req.body.id })
-        res.json(user)
-        return
+
+        let json = res.json(user)
+
+        // console.log({json})
+        
     } catch (error) {
         console.log(error.message)
         res.status(500).send('Internal server error occured')

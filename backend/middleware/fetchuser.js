@@ -13,12 +13,10 @@ const fetchuser = async(req,res,next) => {
         const data = jwt.verify(token,JWT_SECRET)
 
         req.body = data.user
-        console.log(data)
         next();
     } catch (error) {
         return res.status(401).json({error:'Please authantcicate using a valid token'})
     }
-
 
 }
 

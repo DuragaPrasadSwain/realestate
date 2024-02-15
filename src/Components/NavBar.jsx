@@ -7,7 +7,7 @@ const NavBar = () => {
   let location = useLocation();
 
   React.useEffect(() => {
-    // Google Analytics
+
   }, [location]);
 
   const {currentUser} = useSelector(state => state.user)
@@ -15,6 +15,16 @@ const NavBar = () => {
 
   const handleClick = () =>{
     localStorage.clear()
+  }
+
+  const logo = () => {
+    if(location.pathname==='/signin'){
+      return 'hidden'
+    }else if(location.pathname === '/signup'){
+      return 'hidden'
+    }else{
+      return ''
+    }
   }
 
  
@@ -44,13 +54,13 @@ const NavBar = () => {
       {/* page links */}
       <div className='hidden text-blue-200 res:inline mr-5 dosis-dosis-600 text-lg'>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/">Home</Link>
-      <Link onClick={handleClick} className='mr-3 hover:underline underline-offset-8' to = "/signin">{location.pathname===('/signin'||'/signup')?'Sign In':'Sign Out'}</Link>
+      <Link onClick={handleClick} className='mr-3 hover:underline underline-offset-8' to = "/signin">{(logo() === 'hidden')?'Sign In':'Sign Out'}</Link>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/about">About</Link>
       </div>
 
       {/* profile */}
     <Link to="/profile">
-    <div id='profile' className ={location.pathname===('/signin'||'/signup')?'hidden':''}>
+    <div id='profile' className ={logo()}>
       {/* <i className="fa-regular fa-circle fa-2xl"> */}
         <img className='size-8 rounded-full' src={(currentUser)?currentUser.profilepic:""} alt="profile" />
       {/* </i> */}

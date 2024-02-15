@@ -2,17 +2,22 @@ import React from 'react'
 import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth'
 import { app } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import { fetchUser } from '../fetchingAPI/fetchUser'
+import { useDispatch } from 'react-redux'
+import { signInSuccess } from '../redux/reducer/userSlice'
 
 const Gauth = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
     const handleClick = async () => {
         try {
             const provider = new GoogleAuthProvider()
             const auth = getAuth(app)
+            console.log("hiiii1");
             const result = await signInWithPopup(auth, provider)
-
+            console.log("hiii2");
             const response = await fetch('http://localhost:3000/api/auth/google',{
               method:"POST",
               headers:{
@@ -21,11 +26,21 @@ const Gauth = () => {
               body:JSON.stringify({email:result.user.email})
             })
 
+            console.log("hiiii3");
+
             const json = await response.json()
+
+            console.log("hiiii4");
 
             console.log(json);
 
             localStorage.setItem('token',json.authToken)
+            document.getElementById('loader').classList.remove('hidden')
+            let useri = await fetchUser()
+            document.getElementById('loader').classList.add('hidden')
+            console.log(useri)
+            dispatch(signInSuccess(useri))
+            // console.log(useri);
 
             navigate('/')
 

@@ -18,6 +18,9 @@ export const fetchUser = async() =>{
 
     const json = await response.json()
 
+    console.log(json);
+
+
     return (json)
     // dispatch(signInSuccess(json))   
 }

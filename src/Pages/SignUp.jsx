@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Gauth from '../Components/Gauth';
+import { fetchUser } from '../fetchingAPI/fetchUser';
 
 const SignUp = () => {
   const [credential, setcredential] = useState({ username: "", email: "", password: "" })

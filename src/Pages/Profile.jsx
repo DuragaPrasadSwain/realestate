@@ -75,8 +75,10 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    document.getElementById('loader').classList.remove('hidden')
     await updateUserinofo(currentUser._id, updateUser)
     useri = await fetchUser()
+    document.getElementById('loader').classList.add('hidden')
     dispatch(signInSuccess(useri))
 
   }
@@ -84,25 +86,38 @@ const Profile = () => {
 
 
   const handleClick = async () => {
+    document.getElementById('loader').classList.remove('hidden')
     await deleteUser(currentUser._id)
+    document.getElementById('loader').classList.add('hidden')
     localStorage.clear()
     navigate('/signin')
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit} className='text-blue-950 dosis-dosis-500 flex flex-col items-center gap-3 h-screen justify-center'>
+    <div className='text-blue-950 dosis-dosis-500 flex flex-col items-center gap-3 h-screen justify-center'>
+      <form onSubmit={handleSubmit} className='flex flex-col items-center gap-3' >
         <input onChange={(e) => { setfile(e.target.files[0]) }} ref={fileRef} type="file" accept='image/*' hidden />/
         <img onClick={() => { fileRef.current.click() }} className='cursor-pointer size-24 rounded-full' src={formData.avatar || currentUser.profilepic} />
         <p>
-          {fileUploadError ? (<span>Error image uploded</span>) :
+          {fileUploadError ? (<span className='text-red-600' >Error image uploded</span>) :
             fileper > 0 && fileper < 100 ? (<span>{`Uploading ${fileper}%`}</span>) :
-              fileper === 100 ? (<span>Image successfully uploaded</span>) : ""}
+              fileper === 100 ? (<span className='text-green-600'>Press update</span>) : ""}
         </p>
         <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='username' placeholder={currentUser.username} />
         <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='email' placeholder={currentUser.email} />
         <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='password' placeholder='Password' />
         <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>UPDATE</button>
+        {/* <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
+        <div className='flex justify-between w-96 px-1 text-red-600'>
+          <span onClick={handleClick} className='cursor-pointer'>Delete Account</span>
+          <span onClick={() => {
+            localStorage.clear()
+            navigate('/signin')
+          }} className='cursor-pointer'>Sign Out</span>
+        </div> */}
+      </form>
+      <button onClick={()=>{navigate('/create-list')}} className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
         <div className='flex justify-between w-96 px-1 text-red-600'>
           <span onClick={handleClick} className='cursor-pointer'>Delete Account</span>
           <span onClick={() => {
@@ -110,7 +125,7 @@ const Profile = () => {
             navigate('/signin')
           }} className='cursor-pointer'>Sign Out</span>
         </div>
-      </form>
+</div>
     </>
   )
 }
