@@ -1,6 +1,4 @@
-// import mongoose from "mongoose";
 const mongoose = require('mongoose');
-// import { Schema } from "mongoose";
 const {Schema} = mongoose;
 const userSchema = new Schema({
     username:{
