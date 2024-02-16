@@ -108,14 +108,6 @@ const Profile = () => {
         <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='email' placeholder={currentUser.email} />
         <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='password' placeholder='Password' />
         <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>UPDATE</button>
-        {/* <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
-        <div className='flex justify-between w-96 px-1 text-red-600'>
-          <span onClick={handleClick} className='cursor-pointer'>Delete Account</span>
-          <span onClick={() => {
-            localStorage.clear()
-            navigate('/signin')
-          }} className='cursor-pointer'>Sign Out</span>
-        </div> */}
       </form>
       <button onClick={()=>{navigate('/create-list')}} className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
         <div className='flex justify-between w-96 px-1 text-red-600'>
