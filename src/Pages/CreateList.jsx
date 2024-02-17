@@ -1,6 +1,7 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import React, { useState } from 'react'
 import { app } from '../firebase'
+import { ImageLoader } from '../Components/loader'
 
 const CreateList = () => {
   const [files,setfiles] = useState({})
@@ -11,6 +12,8 @@ const CreateList = () => {
   console.log(formdata);
   const handleImageSubmit = (e) => {
     if(files.length > 0 && files.length + formdata.imageUrls.length < 7){
+      document.getElementById('imgloader').classList.remove('hidden')
+      console.log("hiii");
       const promises = []
 
       for(let i = 0 ; i < files.length; i++){
@@ -22,9 +25,13 @@ const CreateList = () => {
           imageUrls: formdata.imageUrls.concat(urls)
         })
         setimageUploadError(false)
+        document.getElementById('imgloader').classList.add('hidden')
+      console.log("hii2")
       }).catch((err) =>{
         setimageUploadError('Image upload failed')
-      })
+      },
+      
+      )
     }else{
       setimageUploadError('you can only upload 6 images per listing')
     }
@@ -54,6 +61,12 @@ const CreateList = () => {
       )
     })
   }
+
+
+  const handleDelete = (index) => {
+    setformdata({...formdata,imageUrls: formdata.imageUrls.filter((_,i)=> i!= index)})
+  }
+
 
   return (
     <div className='flex flex-col items-center'>
@@ -130,16 +143,17 @@ const CreateList = () => {
         
         </div>
         <div className='w-full p-3'>
-          {formdata.imageUrls.length > 0 && formdata.imageUrls.map((url)=>{
+          {formdata.imageUrls.length > 0 && formdata.imageUrls.map((url,index)=>{
             
             
               // {console.log(url)}
               return <div className='flex justify-between w-full my-5 border-2 rounded-lg border-blue-300 p-2'>
                 <img src={url} key={url} alt='images' className='size-44 rounded-lg'/>
-                <button className='bg-red-500 text-white p-2 rounded-lg'>DELETE</button>
+                <button onClick={() => handleDelete(index)} type='button' className='bg-red-500 text-white p-2 rounded-lg'>DELETE</button>
               </div>
             
           })}
+          <ImageLoader/>
         </div>
         {/* <img src={'https://firebasestorage.googleapis.com/v0/b/estate-9396a.appspot.com/o/1708106342637IMG_20220921_103036.jpg?alt=media&token=00aa303c-5609-44d7-9a6e-da0c00c1d146'} className='size-20'/> */}
         <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-full p-2 '>UPDATE</button>

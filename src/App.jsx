@@ -6,7 +6,7 @@ import Profile from './Pages/Profile'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import NavBar from './Components/NavBar'
-import Loader from './Components/loader'
+import {Loader} from './Components/loader'
 import CreateList from './Pages/CreateList'
 // import './App.css'
 
