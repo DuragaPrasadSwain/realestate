@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     currentUser:null,
-    updateUser:null
+    updateUser:null,
+    updateList:null
 }
 
 const userSlice = createSlice({
@@ -16,11 +17,14 @@ const userSlice = createSlice({
 
         updateData:(state,action) => {
             state.updateUser = action.payload
-        }
-
+        },
+        updateListData:(state,action) => {
+            // console.log(state.updateList);
+            state.updateList = action.payload
+        },
     }
 })
 
-export const {signInSuccess , updateData} = userSlice.actions
+export const {signInSuccess , updateData, updateListData } = userSlice.actions
 
 export default userSlice.reducer

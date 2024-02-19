@@ -8,8 +8,10 @@ export const updateUserinofo = async(id,updateUser)=>{
             'auth-token':localStorage.getItem('token')
         },body:JSON.stringify(updateUser)
     })
+    console.log(response);
     const json = await response.json()
-    console.log(json);
+    console.log(response);
+    // console.log(json);
     return (json)
     } catch (error) {
         console.log({error:error.message})

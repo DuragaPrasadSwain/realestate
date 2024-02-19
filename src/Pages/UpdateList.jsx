@@ -1,36 +1,36 @@
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import React, { useState } from 'react'
-import { app } from '../firebase'
+import { useDispatch, useSelector } from 'react-redux'
 import { ImageLoader } from '../Components/loader'
-import { useSelector } from 'react-redux'
-import { createListing } from '../fetchingAPI/createlisting'
+import { updateListData } from '../redux/reducer/userSlice'
+import { updateapiList } from '../fetchingAPI/updatelist'
+import { app } from '../firebase'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
 
-const CreateList = () => {
+const UpdateList = () => {
+
+  const {updateList, currentUser} = useSelector(state => state.user)
   const navigate = useNavigate()
-  const {currentUser} = useSelector(state => state.user)
+  const dispatch = useDispatch()
   const [files, setfiles] = useState({})
   const [imageUploadError, setimageUploadError] = useState(null)
   const [error , seterror] = useState("")
   const [formdata, setformdata] = useState({
-    imgURLs: [],
-    useRef:currentUser._id,
-    name: "",
-    description: "",
-    address: "",
-    regularPrice: 0,
-    discountPrice: 0,
-    type: "rent",
-    parkingSpot: true,
-    furnished: true,
-    beds: 1,
-    bath: 1,
-    offer: true
+    imgURLs: updateList.imgURLs,
+    useRef: updateList.useRef,
+    name: updateList.name,
+    description: updateList.description,
+    address: updateList.address,
+    regularPrice: updateList.regularPrice,
+    discountPrice: updateList.discountPrice,
+    type: updateList.type,
+    parkingSpot: updateList.parkingSpot,
+    furnished: updateList.furnished,
+    beds: updateList.beds,
+    bath: updateList.bath,
+    offer: updateList.offer,
+    _id:updateList._id
   })
-
-
-
-  //upload of images in firebase from UI
 
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formdata.imgURLs.length < 7) {
@@ -58,11 +58,9 @@ const CreateList = () => {
     } else {
       setimageUploadError('you can only upload 6 images per listing')
     }
+    console.log("hiii3453");
+    dispatch(updateListData(formdata))
   }
-
-
-  //Store images in firebase in backend
-
 
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
@@ -89,15 +87,12 @@ const CreateList = () => {
     })
   }
 
-  //delete of photo handle click
+
   const handleDelete = (index) => {
     setformdata({ ...formdata, imgURLs: formdata.imgURLs.filter((_, i) => i != index) })
+    dispatch(updateListData(formdata))
   }
 
-
-
-
-  //onchange handleing
 
   const onchange = (e) => {
     if (e.target.id === 'sell' ||
@@ -110,11 +105,9 @@ const CreateList = () => {
     } else {
       setformdata({ ...formdata, [e.target.id]: e.target.value })
     }
+    dispatch(updateListData(formdata))
   }
-
-
-  //onsubmit 
-
+  
 
   const handleFormSubmit =async (e) => {
     e.preventDefault()
@@ -131,28 +124,31 @@ const CreateList = () => {
       seterror("")
      }
     try {
-      createListing(formdata)
+      
+      updateapiList(updateList)
       navigate('/profile')
+
     } catch (error) {
       console.log({error})
     }
   }
-
+  dispatch(updateListData(formdata))
 
 
   return (
     <form onSubmit={handleFormSubmit} className='flex flex-col items-center select-none'>
+    {/* <form className='flex flex-col items-center select-none'> */}
       <h6 className='text-blue-950 text-7xl dosis-dosis-800 my-5 pt-16 pb-10' >Create a Listing</h6>
       <div className='text-blue-950 dosis-dosis-500 flex flex-col res:flex-row  justify-center gap-5 '>
         <div className='gap-5 flex flex-col'>
 
 
 
-          <input required id='name' onChange={onchange} className='bg-blue-300 p-2 rounded' type="text" placeholder='name' />
+          <input id='name' onChange={onchange} className='bg-blue-300 p-2 rounded' type="text" placeholder = {updateList.name} />
 
-          <textarea required onChange={onchange} className='bg-blue-300 p-2 rounded' placeholder='Description' id="description" rows="1"></textarea>
+          <textarea onChange={onchange} className='bg-blue-300 p-2 rounded' placeholder= {updateList.description} id="description" rows="1"></textarea>
 
-          <textarea required onChange={onchange} className='bg-blue-300 p-2 rounded' placeholder='Address' id="address" rows="1"></textarea>
+          <textarea onChange={onchange} className='bg-blue-300 p-2 rounded' placeholder= {updateList.address} id="address" rows="1"></textarea>
 
           <div className='flex gap-24'>
             <div className=' border-2 border-black flex items-center bg-red-500 size-4 rounded after:content-["Unchecked"] after:ml-5 '><span></span></div>
@@ -163,39 +159,47 @@ const CreateList = () => {
 
             <label className='select-none cursor-pointer'>
               <input onChange={onchange} checked={formdata.type === 'sell'} className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="sell" /> Sell
+              {/* <input className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="sell" /> Sell */}
             </label>
 
             <label className='select-none cursor-pointer'>
               <input onChange={onchange} checked={formdata.type === 'rent'} className=' border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="rent" /> Rent
+              {/* <input className=' border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="rent" /> Rent */}
             </label>
 
             <label className='select-none cursor-pointer'>
-              <input onChange={onchange} checked={formdata.parkingSpot === true} className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="parkingSpot" /> Parking spot
             </label>
+              <input onChange={onchange} checked={formdata.parkingSpot === true} className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="parkingSpot" /> Parking spot
+              {/* <input className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="parkingSpot" /> Parking spot */}
 
             <label className='select-none cursor-pointer'>
               <input onChange={onchange} checked={formdata.furnished === true} className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="furnished" /> Furnished
+              {/* <input className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="furnished" /> Furnished */}
             </label>
 
             <label className='select-none cursor-pointer'>
               <input onChange={onchange} checked={formdata.offer === true} className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="offer" /> Offer
+              {/* <input className='border-2 border-black rounded bg-red-500 cursor-pointer appearance-none checked:bg-green-500 size-4' type="checkbox" id="offer" /> Offer */}
             </label>
 
           </div>
           <div className='flex gap-5'>
             <label>
+              <input className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="beds" /> Beds
               <input onChange={onchange} value={formdata.beds} className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="beds" /> Beds
             </label>
             <label>
               <input onChange={onchange} value={formdata.bath} className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="bath" /> Baths
+              {/* <input className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="bath" /> Baths */}
             </label>
           </div>
           <label className='flex items-center gap-2'>
-            <input onChange={onchange} placeholder='0' className='bg-blue-300 size-5 w-36 rounded py-4 px-2' type="number" id="regularPrice" /> <div className='flex flex-col text-center'><span>Regular price</span>{formdata.type==='rent' && <span className='text-xs dosis-dosis-800'>( Rs/Month )</span>}</div>
+            <input onChange={onchange} placeholder={updateList.regularPrice} className='bg-blue-300 size-5 w-36 rounded py-4 px-2' type="number" id="regularPrice" /> <div className='flex flex-col text-center'><span>Regular price</span>{formdata.type==='rent' && <span className='text-xs dosis-dosis-800'>( Rs/Month )</span>}</div>
+            {/* <input placeholder='0' className='bg-blue-300 size-5 w-36 rounded py-4 px-2' type="number" id="regularPrice" /> <div className='flex flex-col text-center'><span>Regular price</span>{formdata.type==='rent' && <span className='text-xs dosis-dosis-800'>( Rs/Month )</span>}</div> */}
           </label>
 
          {formdata.offer && <label className='flex items-center gap-2'>
-            <input onChange={onchange} placeholder='0' className='bg-blue-300 size-5 w-36 rounded py-4 px-2' type="number" id="discountPrice" /> <div className='flex flex-col text-center'><span>Discounted price</span></div>
+            <input onChange={onchange} placeholder={updateList.discountPrice} className='bg-blue-300 size-5 w-36 rounded py-4 px-2' type="number" id="discountPrice" /> <div className='flex flex-col text-center'><span>Discounted price</span></div>
           </label>}
 
         </div>
@@ -205,7 +209,7 @@ const CreateList = () => {
 
           <div className=' my-5 flex flex-col items-center gap-4'>
             <div className='flex gap-3'>
-              <input required onChange={(e) => { setfiles(e.target.files) }}
+              <input onChange={(e) => { setfiles(e.target.files) }}
                 className='cursor-pointer border-2 p-4 rounded border-blue-300 block w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
@@ -213,6 +217,7 @@ const CreateList = () => {
                 file:bg-blue-50 file:text-blue-700
                 hover:file:bg-blue-100' type="file" id="images" accept='image/*' multiple />
               <button onClick={handleImageSubmit} className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-36 p-2 ' type="button">UPLOAD</button>
+              {/* <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-36 p-2 ' type="button">UPLOAD</button> */}
 
             </div>
             <div className='w-full p-3'>
@@ -228,7 +233,7 @@ const CreateList = () => {
               })}
               <ImageLoader />
             </div>
-            <button type='submit' className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-full p-2 '>CREATE LIST</button>
+            <button type='submit' className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-full p-2 '>UPDATE</button>
             <p className='text-red-500'>{imageUploadError && imageUploadError}</p>
             <p className='text-red-500'>{error}</p>
           </div>
@@ -238,4 +243,4 @@ const CreateList = () => {
   )
 }
 
-export default CreateList
+export default UpdateList

@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { app } from '../firebase';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { signInSuccess, updateData } from '../redux/reducer/userSlice';
+import { signInSuccess, updateData, updateListData } from '../redux/reducer/userSlice';
 import { updateUserinofo } from '../fetchingAPI/updateUser';
 import { fetchUser } from '../fetchingAPI/fetchUser';
 import { deleteUser } from '../fetchingAPI/deleteUser';
+import { getList } from '../fetchingAPI/getlists';
+import { deletelist } from '../fetchingAPI/deletelist';
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -17,6 +19,7 @@ const Profile = () => {
   const [fileper, setfileper] = useState(0)
   const [fileUploadError, setfileUploadError] = useState(false)
   const [formData, setformData] = useState({})
+  const [list,setlist] = useState(null)
 
   const [updatedata, setupdatedata] = useState({ username: null, email: null, password: null, profilepic: null })
 
@@ -26,7 +29,7 @@ const Profile = () => {
     }
   }, [location]);
 
-  const { currentUser, updateUser } = useSelector(state => state.user)
+  const { currentUser, updateUser, updateList} = useSelector(state => state.user)
 
 
 
@@ -68,7 +71,7 @@ const Profile = () => {
     setupdatedata({ ...updatedata, [e.target.id]: e.target.value })
   }
 
-  dispatch(updateData(updatedata))
+  // dispatch(updateData(updatedata))
 
   let useri = null;
 
@@ -91,6 +94,29 @@ const Profile = () => {
     document.getElementById('loader').classList.add('hidden')
     localStorage.clear()
     navigate('/signin')
+  }
+
+let i = 0
+  // console.log(list.list.i;
+
+  const getListButton = async(e) => {
+    e.preventDefault()
+    if(!list){
+      setlist(await getList())
+    }else{
+      setlist(null)
+    }
+  }
+
+  const deleteList = async(id) => {
+    await deletelist(id)
+    setlist(await getList())
+  }
+
+  const updatelist = (index) => {
+dispatch(updateListData(index))
+console.log(updateList);
+navigate('/update-list')
   }
 
   return (
@@ -117,7 +143,51 @@ const Profile = () => {
             navigate('/signin')
           }} className='cursor-pointer'>Sign Out</span>
         </div>
+        <button onClick={getListButton} type="button" className='uppercase dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2'>Show Listing</button>
+        
 </div>
+<div className='flex flex-col items-center gap-5'>
+{
+          list && list.list.map((index)=>{
+
+            // console.log(index.imgURLs)
+            return <div key={index._id} className='border w-96 p-2 dosis-dosis-600 rounded-lg border-blue-300 text-blue-950'>
+
+              {/* {console.log(index)} */}
+
+              <p className='text-center uppercase dosis-dosis-800'>For {index.type}</p>
+
+              <img src={index.imgURLs} className='size-52 w-full my-3 rounded-lg'/>
+              
+              <div>
+                Name : {index.name} <br/>
+                Regular Price : {index.regularPrice} <br />
+                Dicounted Price : {index.discountPrice} <br />
+                Bed Rooms : {index.beds} <br />
+                Bath Rooms : {index.bath} <br />
+                Furnished : {index.furnished?"Available":"Unavailable"} <br />
+                Parking : {index.parkingSpot?"Available":"Unavailable"}
+              </div>
+              <div>
+              <div>Address : </div>
+              <textarea disabled value={index.address} rows='2' className='w-full'></textarea>
+              <div>Description : </div>
+              <textarea disabled value={index.description} rows='3' className='w-full'></textarea>
+              </div>
+              {/* {console.log(index._id)} */}
+              <div className='p-3 w-full flex justify-between'>
+              {/* <button onClick={async()=>{await deletelist(index._id)}} className='bg-red-400 py-1 px-3 rounded font-semibold hover:bg-red-300'  type="button">DELETE</button> */}
+              <button onClick={()=>{updatelist(index)}} className='bg-green-400 py-1 px-3 rounded font-semibold hover:bg-green-300' type="button">UPDATE</button>
+              <button onClick={()=>{navigate(`/listing/${index._id}`)}} className='bg-blue-400 py-1 px-3 rounded font-semibold hover:bg-blue-300' type="button">UPDATE</button>
+              <button onClick={()=>{deleteList(index._id)}} className='bg-red-400 py-1 px-3 rounded font-semibold hover:bg-red-300'  type="button">DELETE</button>
+              </div>
+              
+            </div>
+
+
+          })
+        }
+        </div>
     </>
   )
 }

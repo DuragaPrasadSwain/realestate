@@ -8,6 +8,8 @@ import SignUp from './Pages/SignUp'
 import NavBar from './Components/NavBar'
 import {Loader} from './Components/loader'
 import CreateList from './Pages/CreateList'
+import UpdateList from './Pages/UpdateList'
+import Listing from './Pages/listing'
 // import './App.css'
 
 function App() {
@@ -19,11 +21,12 @@ function App() {
      <Loader/>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/about" element={<About/>} />
+        <Route path="/listing/:id" element={<Listing/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/create-list" element={<CreateList/>} />
+        <Route path="/update-list" element={<UpdateList/>} />
       </Routes>
     </BrowserRouter>
 

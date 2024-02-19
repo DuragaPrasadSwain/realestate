@@ -35,7 +35,7 @@ const NavBar = () => {
       <Link to="/">
       <div className='cinzel-decorative-black text-lg res:text-3xl flex'>
         <p className='text-yellow-300'>VISHNU</p>
-        <p className='text-orange-400'>DANA</p>
+        <p className='text-orange-400'>BHUMI</p>
       </div>
       </Link>
 
