@@ -3,7 +3,7 @@ import Gauth from '../Components/Gauth'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchUser } from '../fetchingAPI/fetchUser'
-import { signInSuccess } from '../redux/reducer/userSlice'
+import { signInSuccess, statusChange } from '../redux/reducer/userSlice'
 
 
 const SignIn = () => {
@@ -11,7 +11,7 @@ const SignIn = () => {
   const [fetchdata,setfetchdata] = useState({})
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log(fetchdata);
+  // console.log(fetchdata);
   const handleClick = async (e) => {
     e.preventDefault()
 
@@ -29,7 +29,7 @@ const SignIn = () => {
 
     document.getElementById('loader').classList.add('hidden')
 
-    console.log(json);
+    // console.log(json);
 
     if(json.error){
 
@@ -39,7 +39,7 @@ const SignIn = () => {
       localStorage.setItem('token',json.authToken)
       let p = await fetchUser()
       dispatch(signInSuccess(p))
-      console.log(p)
+      dispatch(statusChange(true))
       navigate('/')
     }
 
@@ -68,7 +68,7 @@ const SignIn = () => {
           <button type='submit' 
           className='bg-blue-950 border-2 active:bg-blue-950 active:text-blue-200 hover:bg-blue-200 hover:text-blue-950 
           hover:border-blue-950 text-blue-200 mb-4 rounded focus:outline-none pl-5 p-3 w-96' >
-            SIGN UP
+            SIGN IN
             </button>
 
           <Gauth/>

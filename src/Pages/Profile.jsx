@@ -178,7 +178,7 @@ navigate('/update-list')
               <div className='p-3 w-full flex justify-between'>
               {/* <button onClick={async()=>{await deletelist(index._id)}} className='bg-red-400 py-1 px-3 rounded font-semibold hover:bg-red-300'  type="button">DELETE</button> */}
               <button onClick={()=>{updatelist(index)}} className='bg-green-400 py-1 px-3 rounded font-semibold hover:bg-green-300' type="button">UPDATE</button>
-              <button onClick={()=>{navigate(`/listing/${index._id}`)}} className='bg-blue-400 py-1 px-3 rounded font-semibold hover:bg-blue-300' type="button">UPDATE</button>
+              <button onClick={()=>{navigate(`/listing/${index._id}`)}} className='bg-blue-400 py-1 px-3 rounded font-semibold hover:bg-blue-300' type="button">VIEW</button>
               <button onClick={()=>{deleteList(index._id)}} className='bg-red-400 py-1 px-3 rounded font-semibold hover:bg-red-300'  type="button">DELETE</button>
               </div>
               

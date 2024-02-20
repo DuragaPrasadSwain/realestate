@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Gauth from '../Components/Gauth';
 import { fetchUser } from '../fetchingAPI/fetchUser';
+import { useDispatch } from 'react-redux';
+import { statusChange } from '../redux/reducer/userSlice';
 
 const SignUp = () => {
+  const dispatch = useDispatch()
   const [credential, setcredential] = useState({ username: "", email: "", password: "" })
   const navigate = useNavigate();
 
@@ -31,6 +34,7 @@ const SignUp = () => {
     }else{
       localStorage.setItem('token',json.authToken)
       fetchUser()
+      dispatch(statusChange(true))
       navigate('/')
     }
 

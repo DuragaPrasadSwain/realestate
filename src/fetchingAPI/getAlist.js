@@ -9,6 +9,6 @@ export const getAlist = async (id) => {
 
  
 
-    console.log(json);
+    // console.log(json);
     return json
 }

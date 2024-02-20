@@ -1,10 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link, useLocation} from 'react-router-dom'
+import { statusChange } from '../redux/reducer/userSlice';
 
 const NavBar = () => {
-
+  const dispatch = useDispatch()
   let location = useLocation();
+  const {loginStatus} = useSelector(state => state.user)
 
   React.useEffect(() => {
 
@@ -14,16 +16,17 @@ const NavBar = () => {
   // console.log(currentUser);
 
   const handleClick = () =>{
+    dispatch(statusChange(false))
+    console.log(loginStatus);
     localStorage.clear()
   }
 
   const logo = () => {
-    if(location.pathname==='/signin'){
-      return 'hidden'
-    }else if(location.pathname === '/signup'){
+    console.log(loginStatus);
+    if(!loginStatus){
       return 'hidden'
     }else{
-      return ''
+      return
     }
   }
 
@@ -54,16 +57,16 @@ const NavBar = () => {
       {/* page links */}
       <div className='hidden text-blue-200 res:inline mr-5 dosis-dosis-600 text-lg'>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/">Home</Link>
-      <Link onClick={handleClick} className='mr-3 hover:underline underline-offset-8' to = "/signin">{(logo() === 'hidden')?'Sign In':'Sign Out'}</Link>
+      <Link onClick={handleClick} className='mr-3 hover:underline underline-offset-8' to = "/signin">{(!loginStatus)?'Sign In':'Sign Out'}</Link>
       <Link className='mr-3 hover:underline underline-offset-8' to = "/about">About</Link>
       </div>
 
       {/* profile */}
+
+      
     <Link to="/profile">
     <div id='profile' className ={logo()}>
-      {/* <i className="fa-regular fa-circle fa-2xl"> */}
         <img className='size-8 rounded-full' src={(currentUser)?currentUser.profilepic:""} alt="profile" />
-      {/* </i> */}
       </div>
       </Link>
 
