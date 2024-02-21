@@ -98,4 +98,67 @@ router.put('/updatelist/:id', async (req,res)=>{
         res.status(500).send('internal Error')    }
 })
 
+
+
+
+//search
+
+
+
+
+router.get('/searchlist',async(req,res)=> {
+    try {
+        console.log("hii1");
+        const limit = parseInt(req.query.limit) || 9;
+        console.log("hii2");
+        const startIndex = parseInt(req.query.startIndex) || 0
+        console.log("hii3");
+        let offer = req.query.offer;
+        console.log("hii4");
+        if(offer === undefined || offer === 'false'){
+            offer = {$in:[false, true]};
+        }
+        console.log("hii5");
+        let furnished = req.query.furnished;
+        console.log("hii6");
+        if(furnished === undefined || furnished === 'false'){
+            furnished = {$in:[false,true]}
+        }
+        console.log("hii7");
+        let parkingSpot = req.query.parkingSpot;
+        console.log("hii8");
+        if(parkingSpot === undefined || parkingSpot === 'false'){
+            parkingSpot = {$in:[false,true]}
+        }
+        console.log("hii9");
+        let type = req.query.type;
+        console.log("hii10");
+        if(type === undefined || type === 'all'){
+            type = {$in:['rent','sell']}
+        }
+        console.log("hii11");
+        const searchTerm = req.query.searchTerm || '';
+        console.log("hii12");
+        const sort = req.query.sort || 'createdAt';
+        console.log("hii13");
+        const order = req.query.order || 'desc' ;
+        console.log("hii14");
+        const listings = await Listing.find({
+            name:{$regex:searchTerm, $options:'i'},
+            offer,
+            furnished,
+            parkingSpot,
+            type
+        })
+        .sort({[sort]:order})
+        .limit(limit)
+        .skip(startIndex) 
+
+        console.log("hii15");
+        return res.status(200).json(listings)
+    } catch (error) {
+        res.status(500).send('internal error')
+    }
+})
+
 module.exports = router

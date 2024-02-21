@@ -26,6 +26,7 @@ app.listen(3000,()=>{
 app.use('/api/auth',auth)
 app.use('/api/user',userInfo)
 app.use('/api/listing', listing)
+app.use('/api/search', listing)
 
 
 

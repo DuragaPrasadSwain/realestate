@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import { statusChange } from '../redux/reducer/userSlice';
 
 const NavBar = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   let location = useLocation();
   const {loginStatus} = useSelector(state => state.user)
+  const [searchTerm,setsearchTerm] = useState('')
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set('searchTerm', searchTerm)
+    const searchQuery = urlParams.toString()
+    navigate(`/search?${searchQuery}`)
+  }
 
   React.useEffect(() => {
-
-  }, [location]);
+    const urlParams = new URLSearchParams(location.search)
+    const searchTermReomURL = urlParams.get('searchTerm')
+    if(searchTermReomURL) {
+      setsearchTerm(searchTermReomURL)
+    }
+  }, [location.search]);
 
   const {currentUser} = useSelector(state => state.user)
   // console.log(currentUser);
@@ -43,13 +57,15 @@ const NavBar = () => {
       </Link>
 
       {/* search */}
-      <div className='h-8 res:h-10 w-60 lg:w-96 flex p-5  items-center bg-blue-200 rounded-md'>
-      <i className="fa-solid fa-magnifying-glass mr-2 mt-1" ></i>
+      <form onSubmit={handleSubmit} className='h-8 res:h-10 w-60 lg:w-96 flex  items-center bg-blue-200 rounded-md'>
 
-        <input className='bg-blue-200 text-blue-950 placeholder:text-blue-950 placeholder:italic text-justify focus:outline-none' 
+       <input value={searchTerm} onChange={(e)=>{setsearchTerm(e.target.value)}} className='rounded pl-5 h-8 res:h-10 w-60 lg:w-96 bg-blue-200 text-blue-950 placeholder:text-blue-950 placeholder:italic text-justify focus:outline-none' placeholder='Search...' type='text'/>
 
-         placeholder='search...' type='text'/>
-      </div>
+       <button className='bg-blue-200 h-full rounded w-10'>
+        <i className="fa-solid fa-magnifying-glass mr-2 mt-1" ></i>
+        </button>
+
+      </form>
 
       {/* links + profile */}
       <div className='flex items-center'>
