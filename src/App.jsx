@@ -10,6 +10,7 @@ import {Loader} from './Components/loader'
 import CreateList from './Pages/CreateList'
 import UpdateList from './Pages/UpdateList'
 import Listing from './Pages/listing'
+import Search from './Pages/Search'
 // import './App.css'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/create-list" element={<CreateList/>} />
         <Route path="/update-list" element={<UpdateList/>} />
+        <Route path="/search" element={<Search/>} />
       </Routes>
     </BrowserRouter>
 
