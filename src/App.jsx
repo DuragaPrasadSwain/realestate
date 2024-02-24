@@ -9,7 +9,7 @@ import NavBar from './Components/NavBar'
 import {Loader} from './Components/loader'
 import CreateList from './Pages/CreateList'
 import UpdateList from './Pages/UpdateList'
-import Listing from './Pages/listing'
+import Listing from './Pages/Listing'
 import Search from './Pages/Search'
 // import './App.css'
 
