@@ -35,7 +35,7 @@ const CreateList = () => {
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formdata.imgURLs.length < 7) {
       document.getElementById('imgloader').classList.remove('hidden')
-      console.log("hiii");
+      // console.log("hiii");
       const promises = []
 
       for (let i = 0; i < files.length; i++) {
@@ -48,7 +48,7 @@ const CreateList = () => {
         })
         setimageUploadError(false)
         document.getElementById('imgloader').classList.add('hidden')
-        console.log("hii2")
+        // console.log("hii2")
       }).catch((err) => {
         setimageUploadError('Image upload failed')
         document.getElementById('imgloader').classList.add('hidden')
@@ -67,7 +67,7 @@ const CreateList = () => {
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app)
-      console.log(file)
+      // console.log(file)
       const fileName = new Date().getTime() + file.name
       const storageRef = ref(storage, fileName)
       const uploadTask = uploadBytesResumable(storageRef, file)
@@ -75,7 +75,7 @@ const CreateList = () => {
         'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log(`Upload is${progress}% done`);
+          // console.log(`Upload is${progress}% done`);
         },
         (error) => {
           reject(error);

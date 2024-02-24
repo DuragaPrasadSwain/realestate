@@ -7,6 +7,7 @@ export const fetchUser = async() =>{
 
 
 // const dispatch = useDispatch()
+document.getElementById('loader').classList.remove('hidden')
     
     const response = await fetch('http://localhost:3000/api/auth/fetchuser',{
         method:'GET',
@@ -20,7 +21,7 @@ export const fetchUser = async() =>{
 
     // console.log(json);
 
-
+    document.getElementById('loader').classList.add('hidden')
     return (json)
     // dispatch(signInSuccess(json))   
 }

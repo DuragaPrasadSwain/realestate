@@ -31,12 +31,12 @@ const NavBar = () => {
 
   const handleClick = () =>{
     dispatch(statusChange(false))
-    console.log(loginStatus);
+    // console.log(loginStatus);
     localStorage.clear()
   }
 
   const logo = () => {
-    console.log(loginStatus);
+    // console.log(loginStatus);
     if(!loginStatus){
       return 'hidden'
     }else{
@@ -50,9 +50,9 @@ const NavBar = () => {
 
       {/* logo */}
       <Link to="/">
-      <div className='cinzel-decorative-black text-lg res:text-3xl flex'>
-        <p className='text-yellow-300'>VISHNU</p>
-        <p className='text-orange-400'>BHUMI</p>
+      <div className='rubik-head text-lg res:text-4xl flex'>
+        <p className='text-yellow-300'>DREAM</p>
+        <p className='text-orange-400'>HOME</p>
       </div>
       </Link>
 

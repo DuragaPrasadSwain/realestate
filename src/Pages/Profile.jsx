@@ -3,12 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { app } from '../firebase';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { signInSuccess, updateData, updateListData } from '../redux/reducer/userSlice';
+import { signInSuccess, statusChange, updateData, updateListData } from '../redux/reducer/userSlice';
 import { updateUserinofo } from '../fetchingAPI/updateUser';
 import { fetchUser } from '../fetchingAPI/fetchUser';
 import { deleteUser } from '../fetchingAPI/deleteUser';
-import { getList } from '../fetchingAPI/getlists';
+// import { getList } from '../fetchingAPI/getlists';
+
 import { deletelist } from '../fetchingAPI/deletelist';
+import { getList } from '../fetchingAPI/getLists';
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -63,6 +65,7 @@ const Profile = () => {
         getDownloadURL(uploadTask.snapshot.ref).then
           ((downloadURL) => {
             setupdatedata({ ...updatedata, profilepic: downloadURL })
+            dispatch(updateData(updatedata))
           });
       });
   };
@@ -71,13 +74,14 @@ const Profile = () => {
     setupdatedata({ ...updatedata, [e.target.id]: e.target.value })
   }
 
-  // dispatch(updateData(updatedata))
+  dispatch(updateData(updatedata))
 
   let useri = null;
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    dispatch(updateData(updatedata))
     document.getElementById('loader').classList.remove('hidden')
     await updateUserinofo(currentUser._id, updateUser)
     useri = await fetchUser()
@@ -136,12 +140,13 @@ navigate('/update-list')
         <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>UPDATE</button>
       </form>
       <button onClick={()=>{navigate('/create-list')}} className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
-        <div className='flex justify-between w-96 px-1 text-red-600'>
-          <span onClick={handleClick} className='cursor-pointer'>Delete Account</span>
+        <div className='flex justify-between w-96 px-1 '>
+          <span onClick={handleClick} className='cursor-pointer bg-red-600 text-white px-5 py-1 rounded-full hover:bg-red-500'>Delete Account</span>
           <span onClick={() => {
+            dispatch(statusChange(false))
             localStorage.clear()
             navigate('/signin')
-          }} className='cursor-pointer'>Sign Out</span>
+          }} className='cursor-pointer bg-red-600 text-white px-10 py-1 rounded-full hover:bg-red-500'>Sign Out</span>
         </div>
         <button onClick={getListButton} type="button" className='uppercase dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2'>Show Listing</button>
         

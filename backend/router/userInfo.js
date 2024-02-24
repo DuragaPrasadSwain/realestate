@@ -32,7 +32,7 @@ router.put('/update/:id',async(req,res)=>{
         const {username, email, password, profilepic} = req.body
 
         const newUpdate = {}
-        console.log(newUpdate);
+        // console.log(newUpdate);
 
 
         if(username){newUpdate.username = username}
@@ -40,7 +40,7 @@ router.put('/update/:id',async(req,res)=>{
         if(password){newUpdate.password = bcrypt.hashSync(password,10)}
         if(profilepic){newUpdate.profilepic = profilepic}
 
-        console.log(newUpdate.username )
+        // console.log(newUpdate.username )
 
         
 
@@ -79,7 +79,7 @@ router.get('/fetchauser/:id', async (req, res) => {
 
         let json = res.json(email)
 
-        console.log({json})
+        // console.log({json})
         
     } catch (error) {
         console.log(error.message)
@@ -121,8 +121,8 @@ router.delete('/delete/:id', async(req,res)=>{
         return res.status(401).send('not a valid user to delete')
     }
 
-    console.log({user})
-    console.log(req.params.id)
+    // console.log({user})
+    // console.log(req.params.id)
 
     user = await User.findByIdAndDelete(req.params.id)
 

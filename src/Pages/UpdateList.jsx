@@ -35,7 +35,7 @@ const UpdateList = () => {
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formdata.imgURLs.length < 7) {
       document.getElementById('imgloader').classList.remove('hidden')
-      console.log("hiii");
+      // console.log("hiii");
       const promises = []
 
       for (let i = 0; i < files.length; i++) {
@@ -48,7 +48,7 @@ const UpdateList = () => {
         })
         setimageUploadError(false)
         document.getElementById('imgloader').classList.add('hidden')
-        console.log("hii2")
+        // console.log("hii2")
       }).catch((err) => {
         setimageUploadError('Image upload failed')
         document.getElementById('imgloader').classList.add('hidden')
@@ -58,14 +58,14 @@ const UpdateList = () => {
     } else {
       setimageUploadError('you can only upload 6 images per listing')
     }
-    console.log("hiii3453");
+    // console.log("hiii3453");
     dispatch(updateListData(formdata))
   }
 
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app)
-      console.log(file)
+      // console.log(file)
       const fileName = new Date().getTime() + file.name
       const storageRef = ref(storage, fileName)
       const uploadTask = uploadBytesResumable(storageRef, file)
@@ -73,7 +73,7 @@ const UpdateList = () => {
         'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log(`Upload is${progress}% done`);
+          // console.log(`Upload is${progress}% done`);
         },
         (error) => {
           reject(error);
@@ -185,7 +185,7 @@ const UpdateList = () => {
           </div>
           <div className='flex gap-5'>
             <label>
-              <input className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="beds" /> Beds
+              {/* <input className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="beds" /> Beds */}
               <input onChange={onchange} value={formdata.beds} className='bg-blue-300 size-5 w-16 rounded py-4 px-2' type="number" min={1} max={10} id="beds" /> Beds
             </label>
             <label>

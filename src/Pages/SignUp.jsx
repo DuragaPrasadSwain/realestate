@@ -25,7 +25,7 @@ const SignUp = () => {
     })
     const json = await response.json()
     document.getElementById('loader').classList.add('hidden')
-    console.log(json)
+    // console.log(json)/
     document.getElementById('error1').classList.add('hidden')
 
     if (json.error) {
@@ -35,7 +35,7 @@ const SignUp = () => {
       localStorage.setItem('token',json.authToken)
       fetchUser()
       dispatch(statusChange(true))
-      navigate('/')
+      navigate('/signin')
     }
 
   }

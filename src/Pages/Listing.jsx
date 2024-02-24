@@ -45,9 +45,6 @@ const onchange = (e) => {
   const handleClick = () =>{
     ref.current.click()
   }
-
-  console.log(message);
-  console.log(landloard);
   return (
     <main>
       {listing && (<div className='pt-12 res:pt-16'>
@@ -90,7 +87,7 @@ const onchange = (e) => {
             </div>
             <div className=''>
               <i className="fa-solid fa-bath" style={{ color: "rgb(21 128 61)" }}></i>
-              <span className='font-bold'> {listing.bath} Bed</span>
+              <span className='font-bold'> {listing.bath} Bath</span>
             </div>
             <div className=''>
               <i className="fa-solid fa-square-parking" style={{ color: "rgb(21 128 61)" }}></i>
@@ -101,6 +98,21 @@ const onchange = (e) => {
               <span className='font-bold'> {listing.furnished ? 'Furnished' : 'unfurnished'}</span>
             </div>
           </div>
+
+          {
+            !loginStatus && <div className='mb-2 bg-yellow-200 p-2 text-center rounded-lg w-full '>
+            <i className="fa-solid fa-exclamation fa-xl" style={{color: "#FF0000"}}></i> Login if you want to contact house owner
+            </div>
+          }
+      {
+        !loginStatus && <Link to='/signin'>
+          
+          <button className='w-full cursor-pointer p-2 uppercase text-center font-bold rounded-lg bg-blue-950 border-2 active:bg-blue-950 active:text-blue-200 hover:bg-blue-200 hover:text-blue-950 
+          hover:border-blue-950 text-blue-200 mb-4 focus:outline-none'>
+            login
+          </button>
+        </Link>
+      }
           {
         loginStatus &&
         <div>

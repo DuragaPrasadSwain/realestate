@@ -20,7 +20,7 @@ router.post('/signup',
     async (req, res) => {
         // if there errors, return bad request and the error
         const result = validationResult(req);
-        console.log(result.array)
+        // console.log(result.array)
         if (!result.isEmpty()) {
             return res.status(400).json({ error: result.array() })
         }
@@ -68,13 +68,13 @@ router.post('/signin', [
     body('password', 'please enter a valid password').isLength({ min: 5 })
 ], async (req, res) => {
     const result = validationResult(req)
-    console.log(result.array);
+    // console.log(result.array);
     if (!result.isEmpty()) {
         return res.status(400).json({ error: result.array() })
     }
     try {
         let user = await User.findOne({ email: req.body.email })
-        console.log(req.body)
+        // console.log(req.body)
         if (!user) {
             return res.status(400).json({ error: "Email or Password is not valid" })
         }

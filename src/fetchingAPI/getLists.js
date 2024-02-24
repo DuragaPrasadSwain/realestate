@@ -1,4 +1,5 @@
 export const getList = async () => {
+    document.getElementById('loader').classList.remove('hidden')
     const responce = await fetch('http://localhost:3000/api/listing/getlist' ,{
         headers:{
             'content-type' : 'application/json',
@@ -9,7 +10,7 @@ export const getList = async () => {
     let json = await responce.json()
 
  
-
+    document.getElementById('loader').classList.add('hidden')
     // console.log(json);
     return json
 }

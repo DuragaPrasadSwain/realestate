@@ -29,6 +29,7 @@ function App() {
         <Route path="/create-list" element={<CreateList/>} />
         <Route path="/update-list" element={<UpdateList/>} />
         <Route path="/search" element={<Search/>} />
+        <Route path="/about" element={<About/>} />
       </Routes>
     </BrowserRouter>
 

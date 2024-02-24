@@ -1,5 +1,6 @@
 export const createListing = async (body) => {
     try {
+        document.getElementById('loader').classList.remove('hidden')
         const response = await fetch('http://localhost:3000/api/listing/create', {
             method: "POST",
             headers: {
@@ -23,13 +24,14 @@ export const createListing = async (body) => {
             })
         })
 
-        console.log(body.imgURLs);
+        // console.log(body.imgURLs);
 
         const json = await response.json()
-        console.log(json);
+        document.getElementById('loader').classList.add('hidden')
+        // console.log(json);
         return (json)
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return
     }
 }

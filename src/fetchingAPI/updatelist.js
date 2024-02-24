@@ -1,5 +1,6 @@
 export const updateapiList =async (updatelist) => {
-    console.log(updatelist);
+    // console.log(updatelist);
+    document.getElementById('loader').classList.remove('hidden')
     const response =await fetch(`http://localhost:3000/api/listing/updatelist/${updatelist._id}`,{
         method:'PUT',
         headers:{
@@ -9,6 +10,7 @@ export const updateapiList =async (updatelist) => {
     })
 
     const res =await response.json()
-    console.log(res);
+    document.getElementById('loader').classList.add('hidden')
+    // console.log(res);
 
 }
