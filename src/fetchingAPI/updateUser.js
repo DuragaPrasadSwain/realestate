@@ -5,7 +5,8 @@ export const updateUserinofo = async(id,updateUser)=>{
     
     try {
         document.getElementById('loader').classList.remove('hidden')
-    const response = await fetch (`http://localhost:3000/api/user/update/${id}`, {
+    // const response = await fetch (`http://localhost:3000/api/user/update/${id}`, {
+    const response = await fetch (`https://realestate-c0ag.onrender.com/api/user/update/${id}`, {
         method:'PUT',
         headers:{
             'Content-Type':'application/json',

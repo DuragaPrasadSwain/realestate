@@ -51,7 +51,8 @@ const Home = () => {
     const fetchingSaleListing = async () => {
       try {
         document.getElementById('loader').classList.remove('hidden')
-        const res = await fetch('http://localhost:3000/api/search/searchlist?type=sell&limit=5')
+        // const res = await fetch('http://localhost:3000/api/search/searchlist?type=sell&limit=5')
+        const res = await fetch('https://realestate-c0ag.onrender.com/api/search/searchlist?type=sell&limit=5')
         const data = await res.json()
         document.getElementById('loader').classList.add('hidden')
         setsaleListing(data);

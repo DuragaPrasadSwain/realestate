@@ -18,7 +18,8 @@ const Gauth = () => {
             // console.log("hiiii1");
             const result = await signInWithPopup(auth, provider)
             // console.log("hiii2");
-            const response = await fetch('http://localhost:3000/api/auth/google',{
+            // const response = await fetch('http://localhost:3000/api/auth/google',{
+            const response = await fetch('https://realestate-c0ag.onrender.com/api/auth/google',{
               method:"POST",
               headers:{
                 'Content-Type': 'application/json'

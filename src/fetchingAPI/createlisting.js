@@ -1,7 +1,8 @@
 export const createListing = async (body) => {
     try {
         document.getElementById('loader').classList.remove('hidden')
-        const response = await fetch('http://localhost:3000/api/listing/create', {
+        // const response = await fetch('http://localhost:3000/api/listing/create', {
+        const response = await fetch('https://realestate-c0ag.onrender.com/api/listing/create', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

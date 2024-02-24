@@ -1,7 +1,8 @@
 export const updateapiList =async (updatelist) => {
     // console.log(updatelist);
     document.getElementById('loader').classList.remove('hidden')
-    const response =await fetch(`http://localhost:3000/api/listing/updatelist/${updatelist._id}`,{
+    // const response =await fetch(`http://localhost:3000/api/listing/updatelist/${updatelist._id}`,{
+    const response =await fetch(`https://realestate-c0ag.onrender.com/api/listing/updatelist/${updatelist._id}`,{
         method:'PUT',
         headers:{
             'content-type':'application/json',

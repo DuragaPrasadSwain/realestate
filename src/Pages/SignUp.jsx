@@ -17,7 +17,8 @@ const SignUp = () => {
   const handleClick = async (e) => {
     e.preventDefault()
     document.getElementById('loader').classList.remove('hidden')
-    const response = await fetch('http://localhost:3000/api/auth/signup', {
+    // const response = await fetch('http://localhost:3000/api/auth/signup', {
+    const response = await fetch('https://realestate-c0ag.onrender.com/api/auth/signup', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
