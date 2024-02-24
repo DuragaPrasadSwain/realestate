@@ -5,9 +5,11 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
+const dotenv = require('dotenv')
+dotenv.config()
 
-// const   JWT_SECRET = process.env.JWT_SECRET_ENV
-JWT_SECRET = 'DURGAPRASADSWAIN@123'
+const   JWT_SECRET = process.env.JWT_SECRET_ENV
+// JWT_SECRET = 'DURGAPRASADSWAIN@123'
 
 
 //CREATE USER

@@ -2,8 +2,12 @@ const express = require('express')
 const Listing = require('../models/Listing')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv')
+dotenv.config()
 
-JWT_SECRET = 'DURGAPRASADSWAIN@123'
+const   JWT_SECRET = process.env.JWT_SECRET_ENV
+
+// JWT_SECRET = 'DURGAPRASADSWAIN@123'
 
 
 //create listing

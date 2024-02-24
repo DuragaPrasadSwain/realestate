@@ -4,8 +4,12 @@ const User = require('../models/User');
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv')
+dotenv.config()
 
-JWT_SECRET = 'DURGAPRASADSWAIN@123'
+const   JWT_SECRET = process.env.JWT_SECRET_ENV
+
+// JWT_SECRET = 'DURGAPRASADSWAIN@123'
 
 
 
