@@ -13,8 +13,6 @@ const Home = () => {
   const [offerListing, setofferListing] = useState([])
   const [saleListing, setsaleListing] = useState([])
   const [rentListing, setrentListing] = useState([])
-  const [all, setall] = useState(null)
-  const [ready,setready] = useState(false)
 
   React.useEffect(() => {
     if (!(localStorage.getItem('token'))) {
@@ -23,7 +21,8 @@ const Home = () => {
     const fetchingOfferListing = async () => {
       try {
         document.getElementById('loader').classList.remove('hidden')
-        const res = await fetch('http://localhost:3000/api/search/searchlist?offer=true&limit=5')
+        // const res = await fetch('http://localhost:3000/api/search/searchlist?offer=true&limit=5')
+        const res = await fetch('https://realestate-c0ag.onrender.com/api/search/searchlist?offer=true&limit=5')
         const data = await res.json()
         document.getElementById('loader').classList.add('hidden')
         console.log(data);
@@ -37,7 +36,8 @@ const Home = () => {
     const fetchingRentListing = async () => {
       try {
         document.getElementById('loader').classList.remove('hidden')
-        const res = await fetch('http://localhost:3000/api/search/searchlist?type=rent&limit=5')
+        // const res = await fetch('http://localhost:3000/api/search/searchlist?type=rent&limit=5')
+        const res = await fetch('https://realestate-c0ag.onrender.com/api/search/searchlist?type=rent&limit=5')
         const data = await res.json()
         document.getElementById('loader').classList.add('hidden')
         setrentListing(data);
@@ -72,13 +72,13 @@ console.log();
 
   return (
     <div>
-      <div className='pt-44 pl-28 flex flex-col gap-10'>
-        <div className='text-6xl font-bold text-blue-950'>
+      <div className='pt-10 pl-10 res:pt-44 res:pl-28 pad:pt-14 pad:pl-14 flex flex-col gap-10'>
+        <div className='text-xl res:text-6xl pad:text-3xl font-bold text-blue-950'>
           Find your next <span className='text-blue-400'>perfect</span> <br />
           place with ease
         </div>
 
-        <div className='text-blue-400'>
+        <div className='text-blue-400 text-xs res:text-base pad:text-sm'>
           <span><span className='text-yellow-400 font-bold'>DREAM</span><span className='text-orange-400 font-bold'>HOME</span> is the next perfect place to live </span><br />
           <span>We have a wide range of properties for you to choose from</span>
         </div>
@@ -125,7 +125,7 @@ console.log();
                   Show more offers
                 </Link>
               </div>
-              <div className='mr-5 my-5 flex gap-16'>
+              <div className='mr-5 my-5 justify-center pad:justify-normal flex flex-wrap gap-16'>
                 {
                 offerListing.map((index) => (
                   <ListingCard index = {index} key = {index._id}/>
@@ -144,7 +144,7 @@ console.log();
                   Show more offers
                 </Link>
               </div>
-              <div className='mr-5 my-5 flex gap-16'>
+              <div className='mr-5 flex-wrap justify-center pad:justify-normal my-5 flex gap-16'>
                 {
                   rentListing.map((index) =>( 
                     <ListingCard index = {index} key = {index._id}/>
@@ -165,7 +165,7 @@ console.log();
                   Show more offers
                 </Link>
               </div>
-              <div className='mr-5 my-5 flex gap-16'>
+              <div className='mr-5 flex-wrap justify-center pad:justify-normal my-5 flex gap-16'>
                 {
                   saleListing.map((index) => ( 
                     <ListingCard index = {index} key = {index._id}/>

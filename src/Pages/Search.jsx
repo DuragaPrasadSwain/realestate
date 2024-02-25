@@ -125,10 +125,10 @@ const Search = () => {
     return (
         <>
             <div className='pt-12 flex flex-col res:flex-row'>
-                <form onSubmit={handleSubmit} className='pr-5 w-96 pl-5 pt-5 h-full res:h-screen border-b res:border-r flex flex-col gap-5'>
+                <form onSubmit={handleSubmit} className='pr-5 w-screen res:w-96 pl-5 pt-5 h-full res:h-screen border-b res:border-r flex flex-col gap-5'>
                     <p className='dosis-dosis-700 text-2xl'>Filter -</p>
                     <div className='flex gap-5 flex-wrap '>
-                        <span>Type: </span>
+                        <span className='font-semibold'>Type: </span>
                         <label htmlFor="all">
 
                             <input type="checkbox" id='all' onChange={handleChange} checked={sidebarData.type === 'all'}/> Rent & Sale
@@ -151,8 +151,8 @@ const Search = () => {
                         </label>
                     </div>
 
-                    <div className='flex gap-5'>
-                        <span>Amanities: </span>
+                    <div className='flex gap-5 flex-wrap'>
+                        <span className='font-semibold'>Amanities: </span>
 
                         <label htmlFor="parking">
                             <input id='parking' type="checkbox" onChange={handleChange} checked={sidebarData.parking}/> Parking
@@ -166,7 +166,7 @@ const Search = () => {
 
                     <div>
                         <label htmlFor="sort">
-                            Sort: <select onChange={handleChange} defaultValue={'created_at_desc'} id="sort_order" className='border p-1 rounded-lg'>
+                           <span className='font-semibold'>Sort: </span>  <select onChange={handleChange} defaultValue={'created_at_desc'} id="sort_order" className='border p-1 rounded-lg'>
                                 {/* <option value="All">All</option> */}
                                 <option value="createdAt_desc">Latest</option>
                                 <option value="createdAt_asc">Oldest</option>
@@ -182,10 +182,10 @@ const Search = () => {
 
                 </form>
 
-                <div className='p-5'>
+                <div className='p-5 '>
                     <span className='dosis-dosis-700 text-2xl' >Results -</span>
 
-                    <div className='flex flex-wrap gap-10'>
+                    <div className='flex flex-wrap gap-10 justify-center pad:justify-normal mt-5'>
                         {console.log(listingData)}
                         {
                             listingData && listingData.length > 0 && listingData.map((index)=>(

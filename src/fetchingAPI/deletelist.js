@@ -1,7 +1,7 @@
 export const deletelist = async(id) => {
     // console.log("hii");
     document.getElementById('loader').classList.remove('hidden')
-    // const responce = await fetch (`http://localhost:3000/api/listing/deletelist/${id}`,{
+    // const responce = await fetch (`http/://localhost:3000/api/listing/deletelist/${id}`,{
     const responce = await fetch (`https://realestate-c0ag.onrender.com/api/listing/deletelist/${id}`,{
         method:'DELETE',
         headers:{

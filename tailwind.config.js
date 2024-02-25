@@ -12,7 +12,9 @@ export default {
         'mirage':'#161928'
       },
       screens: {
-        'res' : '900px'
+        'res' : '900px',
+        'pad' : '500px',
+        'mob' : '0px'
       },
     },
   },

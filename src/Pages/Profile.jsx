@@ -134,13 +134,13 @@ navigate('/update-list')
             fileper > 0 && fileper < 100 ? (<span>{`Uploading ${fileper}%`}</span>) :
               fileper === 100 ? (<span className='text-green-600'>Press update</span>) : ""}
         </p>
-        <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='username' placeholder={currentUser.username} />
-        <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='email' placeholder={currentUser.email} />
-        <input onChange={onchange} className='bg-blue-200 rounded w-96 p-2 ' type="text" id='password' placeholder='Password' />
-        <button className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>UPDATE</button>
+        <input onChange={onchange} className='w-[260px] bg-blue-200 rounded pad:w-96 p-2 ' type="text" id='username' placeholder={currentUser.username} />
+        <input onChange={onchange} className='w-[260px] bg-blue-200 rounded pad:w-96 p-2 ' type="text" id='email' placeholder={currentUser.email} />
+        <input onChange={onchange} className='w-[260px] bg-blue-200 rounded pad:w-96 p-2 ' type="text" id='password' placeholder='Password' />
+        <button className='w-[260px] dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded pad:w-96 p-2 '>UPDATE</button>
       </form>
-      <button onClick={()=>{navigate('/create-list')}} className='dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2 '>CREATE LIST</button>
-        <div className='flex justify-between w-96 px-1 '>
+      <button onClick={()=>{navigate('/create-list')}} className='w-[260px] dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded pad:w-96 p-2 '>CREATE LIST</button>
+        <div className=' flex justify-between pad:w-96 px-1 '>
           <span onClick={handleClick} className='cursor-pointer bg-red-600 text-white px-5 py-1 rounded-full hover:bg-red-500'>Delete Account</span>
           <span onClick={() => {
             dispatch(statusChange(false))
@@ -148,7 +148,7 @@ navigate('/update-list')
             navigate('/signin')
           }} className='cursor-pointer bg-red-600 text-white px-10 py-1 rounded-full hover:bg-red-500'>Sign Out</span>
         </div>
-        <button onClick={getListButton} type="button" className='uppercase dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-96 p-2'>Show Listing</button>
+        <button onClick={getListButton} type="button" className='uppercase dosis-dosis-700 bg-blue-950 text-blue-200 active:bg-blue-950 active:text-blue-200 hover:text-blue-950 hover:bg-blue-200 rounded w-[260px] pad:w-96 p-2'>Show Listing</button>
         
 </div>
 <div className='flex flex-col items-center gap-5'>
@@ -156,7 +156,7 @@ navigate('/update-list')
           list && list.list.map((index)=>{
 
             // console.log(index.imgURLs)
-            return <div key={index._id} className='border w-96 p-2 dosis-dosis-600 rounded-lg border-blue-300 text-blue-950'>
+            return <div key={index._id} className='border pad:w-96 p-2 dosis-dosis-600 rounded-lg border-blue-300 text-blue-950'>
 
               {/* {console.log(index)} */}
 
